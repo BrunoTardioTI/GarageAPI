@@ -9,7 +9,7 @@ namespace Garage.API.Domain.Models
     public class PerfilUsuario
     {
         public Guid Id { get; set; }
-        public TipoPerfil Tipo { get; set; } // Enum para definir os tipos de perfil (Mecânico, Lojista, etc.)
+        public PerfilUsuario Tipo { get; set; } // Enum para definir os tipos de perfil (Mecânico, Lojista, etc.)
 
         // Relacionamento com Mecânico, Lojista, etc.
         public Mecanico? MecanicoInfo { get; set; }
@@ -17,12 +17,13 @@ namespace Garage.API.Domain.Models
         public Guincho? GuinchoInfo { get; set; }
     }
 
-    public enum TipoPerfil
+    public enum PerfilUsuario
     {
-        Administrador = 1,
-        Cliente = 10,
-        Mecanico = 20,
-        Guincho = 30,
-        Lojista = 40,
+        Cliente,
+        Mecanico,
+        Guincho,
+        Lojista,
+        Administrador,
+        EmpresaParceira
     }
 }
