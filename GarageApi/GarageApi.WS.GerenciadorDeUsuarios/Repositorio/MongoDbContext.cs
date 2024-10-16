@@ -1,33 +1,44 @@
 ﻿using Garage.API.Domain.Models;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace GarageApi.WS.GerenciadorDeUsuarios.Repositorio
 {
-    public class MongoDBSettings
-    {
-        public string ConnectionString { get; set; }
-        public string DatabaseName { get; set; }
-    }
 
-    public class MongoDbContext
+    public class MongoDbConnection
     {
-        private readonly IMongoDatabase _database;
+        private readonly MongoClient _client;
 
-        public MongoDbContext(IOptions<MongoDBSettings> settings)
+        public MongoDbConnection(string connectionString)
         {
-            var connectionString = settings.Value.ConnectionString;
-            var databaseName = settings.Value.DatabaseName;
+            // Criação de configurações a partir da URI de conexão
+            var settings = MongoClientSettings.FromConnectionString(connectionString);
 
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new Exception("A string de conexão não foi encontrada.");
-            }
+            // Configurar a versão da API do servidor
+            settings.ServerApi = new ServerApi(ServerApiVersion.V1);
 
-            var mongoClient = new MongoClient(connectionString);
-            _database = mongoClient.GetDatabase(databaseName);
+            // Criar um novo cliente e conectar ao servidor
+            _client = new MongoClient(settings);
         }
 
-        public IMongoCollection<Usuario> Usuarios => _database.GetCollection<Usuario>("Usuarios");
+        public IMongoDatabase GetDatabase(string databaseName)
+        {
+            return _client.GetDatabase(databaseName);
+        }
+
+        public void TestConnection()
+        {
+            try
+            {
+                // Envia um comando de ping para o banco de dados "admin"
+                var result = _client.GetDatabase("admin").RunCommand<BsonDocument>(new BsonDocument("ping", 1));
+                Console.WriteLine("Pinged your deployment. You successfully connected to MongoDB!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while connecting to MongoDB: " + ex.Message);
+            }
+        }
     }
 }

@@ -6,35 +6,32 @@ using MongoDB.Driver;
 namespace GarageApi.WS.GerenciadorDeUsuarios.Controllers
 {
 
+  
     [ApiController]
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly MongoDbContext _context;
+        private readonly IMongoCollection<Usuario> _usuarios;
 
-        public UsuarioController(MongoDbContext context)
+        public UsuarioController(MongoDbConnection mongoDbConnection)
         {
-            _context = context;
+            // Obtemos o banco de dados e a coleção de usuários
+            var database = mongoDbConnection.GetDatabase("GarageAppDb");
+            _usuarios = database.GetCollection<Usuario>("Usuario");
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUsuario([FromBody] Usuario novoUsuario)
+        public ActionResult<Usuario> CreateUsuario([FromBody] Usuario novoUsuario)
         {
             if (novoUsuario == null)
-                return BadRequest("Dados do usuário inválidos.");
+            {
+                return BadRequest("Usuário não pode ser nulo.");
+            }
 
-            await _context.Usuarios.InsertOneAsync(novoUsuario);  // Insere o usuário no MongoDB
-            return CreatedAtAction(nameof(GetUsuarioById), new { id = novoUsuario.Id }, novoUsuario);
-        }
-
-        [HttpGet("{id:length(24)}")]
-        public async Task<IActionResult> GetUsuarioById(string id)
-        {
-            var usuario = await _context.Usuarios.Find(u => u.Id == id).FirstOrDefaultAsync();
-            if (usuario == null)
-                return NotFound();
-
-            return Ok(usuario);
+            // Adiciona o novo usuário à coleção
+            _usuarios.InsertOne(novoUsuario);
+            return CreatedAtAction(nameof(CreateUsuario), new { id = novoUsuario.Id }, novoUsuario);
         }
     }
 }
+
