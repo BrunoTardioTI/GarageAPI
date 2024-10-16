@@ -1,0 +1,6 @@
+@GarageApi.WS.GerenciadorDeUsuarios_HostAddress = http://localhost:5037
+
+GET {{GarageApi.WS.GerenciadorDeUsuarios_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageApi", "GarageApi\GarageApi.csproj", "{55FFFF59-F12F-49FB-B087-C03E0669B8FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarageApi", "GarageApi\GarageApi.csproj", "{55FFFF59-F12F-49FB-B087-C03E0669B8FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageApi.Domain.Models", "GarageApi.Domain.Models\GarageApi.Domain.Models.csproj", "{9132965D-05BB-4D23-9A97-705DAFA5B11F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarageApi.Domain.Models", "GarageApi.Domain.Models\GarageApi.Domain.Models.csproj", "{9132965D-05BB-4D23-9A97-705DAFA5B11F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageApi.WS.GerenciadorDeUsuarios", "GarageApi.WS.GerenciadorDeUsuarios\GarageApi.WS.GerenciadorDeUsuarios.csproj", "{1AF85084-67EC-4132-8EF1-235DB9B07C6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9132965D-05BB-4D23-9A97-705DAFA5B11F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9132965D-05BB-4D23-9A97-705DAFA5B11F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9132965D-05BB-4D23-9A97-705DAFA5B11F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF85084-67EC-4132-8EF1-235DB9B07C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF85084-67EC-4132-8EF1-235DB9B07C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF85084-67EC-4132-8EF1-235DB9B07C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF85084-67EC-4132-8EF1-235DB9B07C6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
